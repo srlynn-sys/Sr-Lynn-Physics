@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Grade 11 Physics — Scientific Calculator Demo</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2e;--panel2:#101f34;--line:#263b54;--text:#eef6ff;--muted:#91a5bd;--blue:#2f80ed;--cyan:#38bdf8;--gold:#f5c451;--green:#22c55e;--danger:#fb7185}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 20% 10%,#143153 0,#07111f 42%,#030914 100%);color:var(--text)}
+body{display:grid;place-items:center;padding:24px}.wrap{width:min(980px,100%)}
+.top{text-align:center;margin-bottom:18px}.eyebrow{font-size:12px;letter-spacing:.16em;color:var(--cyan);font-weight:800}.top h1{font-size:clamp(22px,5vw,36px);margin:8px 0 5px}.top p{margin:0;color:var(--muted);font-size:14px}
+.calc{width:min(430px,100%);margin:auto;background:linear-gradient(145deg,#14263d,#091523);border:1px solid #30465e;border-radius:28px;padding:16px;box-shadow:0 25px 80px #0009,0 0 0 1px #ffffff08 inset;position:relative;overflow:hidden}.calc:before{content:"";position:absolute;inset:-30% 30% 40% -30%;background:radial-gradient(circle,#38bdf81c,transparent 65%);pointer-events:none}
+.brand{display:flex;justify-content:space-between;align-items:center;padding:3px 5px 10px;color:#cbd8e7;font-size:11px;font-weight:800;letter-spacing:.08em}.brand b{color:var(--gold);font-size:13px}.display{position:relative;background:#06101b;border:1px solid #263c53;border-radius:15px;padding:12px 14px;min-height:105px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}.status{display:flex;gap:12px;color:#6f87a2;font-size:10px;margin-bottom:5px}.expr{font-family:"SFMono-Regular",Consolas,monospace;color:#9fb5ca;text-align:right;font-size:14px;min-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.value{font-family:"SFMono-Regular",Consolas,monospace;text-align:right;font-size:34px;font-weight:700;letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.controls{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:11px 0 7px}.key{border:1px solid var(--line);background:linear-gradient(180deg,#182c43,#102237);color:#dce8f5;border-radius:10px;min-height:39px;font-size:12px;font-weight:800;box-shadow:0 3px 0 #07101b;cursor:pointer;touch-action:manipulation;transition:.12s transform,.12s filter}.key:hover{filter:brightness(1.16)}.key:active{transform:translateY(2px);box-shadow:0 1px 0 #07101b}.fn{color:#8dd8ff}.mode{color:var(--gold)}.danger{color:#ff9aac}.op{background:linear-gradient(180deg,#1b3653,#142b45);color:#a8dcff}.equals{background:linear-gradient(180deg,#2f8be8,#1767bd);border-color:#4ea1f3;color:white}.wide{grid-column:span 2}.key.small{font-size:11px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.grid .key{min-height:49px;font-size:15px}.grid .zero{grid-column:span 2}.hint{text-align:center;color:#71869e;font-size:11px;margin:14px 0 0}.badge{display:inline-block;margin-top:8px;padding:5px 9px;border-radius:999px;background:#0d2238;border:1px solid #24435e;color:#82cfff;font-size:10px}
+@media(max-width:430px){body{padding:12px}.calc{border-radius:23px;padding:12px}.grid{gap:6px}.grid .key{min-height:47px}.controls{gap:6px}.value{font-size:30px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top"><div class="eyebrow">VICTORY LAND FEDERAL SCHOOL</div><h1>Grade 11 Physics</h1><p>Scientific Calculator — standalone sample</p></header>
+  <section class="calc" aria-label="Scientific calculator">
+    <div class="brand"><span>SCIENTIFIC</span><b>PHYSICS</b></div>
+    <div class="display"><div class="status"><span id="angle">DEG</span><span>STAT</span><span>SCI</span><span>ANS</span></div><div class="expr" id="expr">0</div><div class="value" id="value">0</div></div>
+    <div class="controls">
+      <button class="key mode" data-act="angle">DEG</button><button class="key mode" data-act="shift">SHIFT</button><button class="key mode" data-act="alpha">ALPHA</button><button class="key fn" data-act="memory">M+</button><button class="key danger" data-act="clear">AC</button>
+      <button class="key fn" data-fn="sin">sin</button><button class="key fn" data-fn="cos">cos</button><button class="key fn" data-fn="tan">tan</button><button class="key fn" data-fn="log">log</button><button class="key fn" data-fn="ln">ln</button>
+      <button class="key fn" data-fn="sqrt">√</button><button class="key fn" data-fn="square">x²</button><button class="key fn" data-fn="power">xʸ</button><button class="key fn" data-fn="pi">π</button><button class="key fn" data-fn="e">e</button>
+    </div>
+    <div class="grid">
+      <button class="key danger" data-act="del">⌫</button><button class="key" data-char="(">(</button><button class="key" data-char=")">)</button><button class="key op" data-char="%">%</button><button class="key op" data-char="/">÷</button>
+      <button class="key" data-char="7">7</button><button class="key" data-char="8">8</button><button class="key" data-char="9">9</button><button class="key op" data-char="*">×</button><button class="key fn" data-act="ans">Ans</button>
+      <button class="key" data-char="4">4</button><button class="key" data-char="5">5</button><button class="key" data-char="6">6</button><button class="key op" data-char="-">−</button><button class="key fn" data-act="sign">±</button>
+      <button class="key" data-char="1">1</button><button class="key" data-char="2">2</button><button class="key" data-char="3">3</button><button class="key op" data-char="+">+</button><button class="key equals" data-act="equals">=</button>
+      <button class="key zero" data-char="0">0</button><button class="key" data-char=".">.</button><button class="key fn" data-act="back">C</button><button class="key equals" data-act="equals">=</button>
+    </div>
+    <div class="hint">Tap any key to test • DEG/RAD • SHIFT • keyboard-friendly layout</div>
+  </section>
+</main>
+<script>
+(()=>{
+ const exprEl=document.getElementById('expr'), valueEl=document.getElementById('value'), angleEl=document.getElementById('angle');
+ let expr='', ans=0, memory=0, angle='DEG', shifted=false, alpha=false;
+ const render=()=>{exprEl.textContent=expr||'0'; valueEl.textContent=preview(expr)};
+ const toRad=x=>angle==='DEG'?x*Math.PI/180:x;
+ const safe=src=>{let s=src.replace(/Ans/g,'('+ans+')').replace(/π/g,'Math.PI').replace(/\be\b/g,'Math.E').replace(/√/g,'sqrt');if(!/^[0-9+\-*/%().,\sA-Za-z_]+$/.test(s))throw Error();return s};
+ const evaluate=s=>{s=safe(s).replace(/sqrt\(/g,'Math.sqrt(').replace(/\b(sin|cos|tan|log|ln)\(/g,(m,f)=>({sin:'S',cos:'C',tan:'T',log:'L',ln:'N'})[f]+'(').replace(/\^/g,'**');s=s.replace(/S\(([^()]*)\)/g,(_,x)=>Math.sin(toRad(Function('return '+x)()))).replace(/C\(([^()]*)\)/g,(_,x)=>Math.cos(toRad(Function('return '+x)()))).replace(/T\(([^()]*)\)/g,(_,x)=>Math.tan(toRad(Function('return '+x)()))).replace(/L\(([^()]*)\)/g,(_,x)=>Math.log10(Function('return '+x)())).replace(/N\(([^()]*)\)/g,(_,x)=>Math.log(Function('return '+x)()));return Function('"use strict";return ('+s+')')()};
+ const preview=s=>{if(!s)return'0';try{const v=evaluate(s);return Number.isFinite(v)?String(Number(v.toFixed(12))):'Math Error'}catch{return'0'}};
+ const add=c=>{expr+=c;render()};
+ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const ch=b.dataset.char, act=b.dataset.act, fn=b.dataset.fn;
+  if(ch!=null)return add(ch);
+  if(fn){if(fn==='pi')return add('π');if(fn==='e')return add('e');if(fn==='sqrt')return add('√(');if(fn==='square')return add('^2');if(fn==='power')return add('^');return add(fn+'(')}
+  if(act==='clear'||act==='back'){expr='';if(act==='clear')ans=0;return render()}
+  if(act==='del'){expr=expr.slice(0,-1);return render()}
+  if(act==='angle'){angle=angle==='DEG'?'RAD':'DEG';angleEl.textContent=angle;b.textContent=angle;return}
+  if(act==='shift'){shifted=!shifted;b.textContent=shifted?'SHIFT✓':'SHIFT';return}
+  if(act==='alpha'){alpha=!alpha;b.textContent=alpha?'ALPHA✓':'ALPHA';return}
+  if(act==='ans'){return add('Ans')}
+  if(act==='memory'){try{memory=evaluate(expr)}catch{};return}
+  if(act==='sign'){expr=expr.startsWith('-')?expr.slice(1):'-('+expr+')';return render()}
+  if(act==='equals'){try{const v=evaluate(expr);if(!Number.isFinite(v))throw Error();ans=v;expr=String(Number(v.toFixed(12)));render()}catch{valueEl.textContent='Math Error'}}
+ });
+ document.addEventListener('keydown',e=>{if(/^[0-9.]$/.test(e.key)||['+','-','*','/','(',')','%','^'].includes(e.key)){add(e.key);return}if(e.key==='Enter'||e.key==='='){document.querySelector('[data-act="equals"]').click();return}if(e.key==='Backspace'){expr=expr.slice(0,-1);render();return}if(e.key==='Escape'){expr='';render()}});
+ render();
+})();
+</script>
+</body>
+</html>
