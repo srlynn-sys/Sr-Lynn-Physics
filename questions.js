@@ -51,3 +51,28 @@ window.questionsData=[
 {q:"If the large piston weighs 50 N, what maximum extra load can the hydraulic press lift?",o:["300 N","350 N","250 N","200 N"],a:2}
 ];
 window.sections=[[1,12,'Atmospheric Pressure & Barometer'],[13,25,'Pressure in a Liquid & Manometer'],[26,38,"Archimedes' Principle & Buoyancy"],[39,50,"Pascal's Law & Applications"]];
+
+/* Mobile exam hardening. Browser-level controls only; OS-level screenshots cannot be blocked by a normal website. */
+(function(){
+  const css=document.createElement('style');
+  css.textContent='html,body,.app{-webkit-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important}input{user-select:text!important;-webkit-user-select:text!important}';
+  document.head.appendChild(css);
+  const active=()=>typeof examIsActive==='function'&&examIsActive();
+  const violate=(reason)=>{if(active()&&typeof markViolation==='function')markViolation(reason)};
+  document.addEventListener('selectstart',e=>{if(active())e.preventDefault()},{passive:false});
+  document.addEventListener('dragstart',e=>{if(active())e.preventDefault()},{passive:false});
+  document.addEventListener('gesturestart',e=>{if(active()){e.preventDefault();violate('gesture-zoom')}},{passive:false});
+  document.addEventListener('gesturechange',e=>{if(active())e.preventDefault()},{passive:false});
+  document.addEventListener('gestureend',e=>{if(active())e.preventDefault()},{passive:false});
+  document.addEventListener('touchstart',e=>{if(active()&&e.touches.length>1){e.preventDefault();violate('multi-touch')}},{passive:false});
+  document.addEventListener('touchmove',e=>{if(active()&&e.touches.length>1)e.preventDefault()},{passive:false});
+  let longPressTimer=null;
+  document.addEventListener('touchstart',e=>{if(!active()||e.touches.length!==1)return;longPressTimer=setTimeout(()=>violate('long-press'),550)},{passive:true});
+  document.addEventListener('touchend',()=>{clearTimeout(longPressTimer)},{passive:true});
+  document.addEventListener('touchmove',()=>{clearTimeout(longPressTimer)},{passive:true});
+  window.addEventListener('orientationchange',()=>{violate('orientation-change')});
+  window.addEventListener('popstate',()=>{if(active()){history.pushState({exam:true},'',location.href);violate('back-navigation')}});
+  window.addEventListener('hashchange',()=>{violate('navigation-change')});
+  window.addEventListener('fullscreenchange',()=>{if(active()&&!document.fullscreenElement)violate('fullscreen-exit')});
+  try{history.replaceState({examGuard:true},'',location.href);history.pushState({examGuard:true},'',location.href)}catch(e){}
+})();
