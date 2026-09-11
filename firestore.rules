@@ -3,11 +3,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /physics_results/{studentId} {
-      // Results are readable for the live result board.
       allow read: if true;
 
-      // A result can be created once. Existing results cannot be overwritten
-      // or deleted from the public client.
       allow create: if
         request.resource.data.keys().hasOnly([
           'id', 'name', 'score', 'total', 'updatedAt'
@@ -24,16 +21,39 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // Anti-cheating lock: once an eligible student's exam session is
-    // interrupted, the client records a permanent violation for that ID.
     match /security_violations/{studentId} {
       allow read: if true;
+
       allow create: if
-        request.resource.data.keys().hasOnly(['id', 'reason', 'createdAt']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'reason', 'violationCount', 'retryUsed', 'createdAt', 'updatedAt'
+        ]) &&
         request.resource.data.id == studentId &&
         request.resource.data.reason is string &&
+        request.resource.data.violationCount == 1 &&
+        request.resource.data.retryUsed == false &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.updatedAt is timestamp &&
         !exists(/databases/$(database)/documents/security_violations/$(studentId));
-      allow update, delete: if false;
+
+      allow update: if
+        resource.data.id == studentId &&
+        resource.data.violationCount == 1 &&
+        request.resource.data.keys().hasOnly([
+          'id', 'reason', 'violationCount', 'retryUsed', 'createdAt', 'updatedAt'
+        ]) &&
+        request.resource.data.id == studentId &&
+        request.resource.data.reason is string &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        request.resource.data.updatedAt is timestamp &&
+        (
+          (request.resource.data.violationCount == 1 &&
+           request.resource.data.retryUsed == true) ||
+          (request.resource.data.violationCount == 2 &&
+           request.resource.data.retryUsed == true)
+        );
+
+      allow delete: if false;
     }
   }
 }
