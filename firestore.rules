@@ -31,7 +31,8 @@ service cloud.firestore {
         request.resource.data.id == studentId &&
         request.resource.data.reason is string &&
         request.resource.data.violationCount == 1 &&
-        request.resource.data.retryUsed == false &&
+        (request.resource.data.retryUsed == false ||
+         (request.resource.data.retryUsed == true && request.resource.data.reason == 'browser-security-event')) &&
         request.resource.data.createdAt is timestamp &&
         request.resource.data.updatedAt is timestamp &&
         !exists(/databases/$(database)/documents/security_violations/$(studentId));
