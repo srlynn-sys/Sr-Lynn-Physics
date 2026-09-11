@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Physics Exam Security Test</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,'Padauk',sans-serif;background:#08111f;color:#eef4ff;min-height:100vh;padding:18px}main{max-width:900px;margin:auto}.hero{padding:24px;border:1px solid #263853;border-radius:22px;background:#0e1a2d;box-shadow:0 18px 50px #0008}.hero h1{margin:0 0 8px;font-size:clamp(25px,6vw,42px)}.hero p{color:#aebbd0;line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:16px}.card{border:1px solid #263853;border-radius:16px;padding:16px;background:#0b1627}.card h3{margin:0 0 8px}.status{font-weight:700}.pending{color:#f6c85f}.pass{color:#69e39a}.fail{color:#ff7272}.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}button{border:0;border-radius:12px;padding:12px 15px;background:#1e3658;color:white;font-weight:700;cursor:pointer}button:hover{filter:brightness(1.15)}#log{margin-top:16px;white-space:pre-wrap;background:#050b14;border:1px solid #263853;border-radius:14px;padding:14px;color:#b9c7dc;min-height:80px}.note{margin-top:14px;padding:13px;border-radius:12px;background:#211c0c;color:#f5dc8a;line-height:1.6}.locked{position:fixed;inset:0;z-index:99999;background:#8b0000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}.locked div{max-width:650px}.locked h2{font-size:clamp(28px,7vw,50px);margin:12px 0}.locked p{font-size:18px;line-height:1.8}</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<h1>🔐 Security Test Lab</h1>
+<p>Sr-Lynn-Physics exam security ကို သီးသန့်စမ်းသပ်ရန် စာမျက်နှာဖြစ်ပါတယ်။ ဒီ page မှာ violation ဖြစ်ရင် main exam ID/Firebase result ကို မထိခိုက်ပါဘူး။</p>
+<div class="note">⚠️ Browser website က iPhone/Android OS-level screenshot ကို 100% မပိတ်နိုင်ပါ။ အောက်က tests တွေက browser-level detection ကို စစ်တာပါ။</div>
+<div class="btns"><button onclick="resetTests()">Reset Test</button><button onclick="simulateViolation()">Simulate Lock</button></div>
+</section>
+<section class="grid" id="tests"></section>
+<div id="log">Test log: ready</div>
+</main>
+<script>
+const tests=[
+ ['tab','Tab / Page Hidden','Tab ပြောင်းခြင်း သို့မဟုတ် App background'],
+ ['context','Right Click','Context menu / right-click'],
+ ['copy','Copy','Copy လုပ်ရန်ကြိုးစားခြင်း'],
+ ['cut','Cut','Cut လုပ်ရန်ကြိုးစားခြင်း'],
+ ['printkey','Print Shortcut','Ctrl/Cmd + P'],
+ ['save','Save Shortcut','Ctrl/Cmd + S'],
+ ['source','View Source','Ctrl/Cmd + U'],
+ ['devtools','Developer Tools','Ctrl+Shift+I/J/S'],
+ ['prints','Print Attempt','Browser print event'],
+ ['pagehide','Page Hide','Page lifecycle hide']
+];
+const state={}; tests.forEach(t=>state[t[0]]='pending');
+const testsEl=document.getElementById('tests');
+function render(){testsEl.innerHTML=tests.map(([id,name,desc])=>`<article class="card"><h3>${name}</h3><div>${desc}</div><p class="status ${state[id]}">${state[id]==='pass'?'✅ PASS':state[id]==='fail'?'❌ FAIL':'⏳ Waiting'}</p></article>`).join('')}
+function log(x){document.getElementById('log').textContent=new Date().toLocaleTimeString()+' — '+x}
+function pass(id,reason){if(state[id]==='pass')return;state[id]='pass';render();log('PASS: '+reason)}
+function lock(reason){log('LOCK TRIGGERED: '+reason);const o=document.createElement('div');o.className='locked';o.innerHTML='<div><div style="font-size:64px">⚠️</div><h2>Security Lock</h2><p>ဒီ test page မှာ abnormal behavior ကို detect လုပ်ပြီး lock ပြုလုပ်ထားပါတယ်။</p><p><b>'+reason+'</b></p><button onclick="location.reload()">Reload Test</button></div>';document.body.appendChild(o)}
+function resetTests(){location.reload()}
+function simulateViolation(){lock('manual-test')}
+
+document.addEventListener('contextmenu',e=>{e.preventDefault();pass('context','Right click detected');lock('context-menu')});
+document.addEventListener('copy',e=>{e.preventDefault();pass('copy','Copy detected');lock('copy')});
+document.addEventListener('cut',e=>{e.preventDefault();pass('cut','Cut detected');lock('cut')});
+window.addEventListener('beforeprint',()=>{pass('prints','Print event detected');lock('print-attempt')});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){pass('tab','Page hidden / tab switch detected');lock('page-hidden-or-tab-switched')}});
+window.addEventListener('pagehide',()=>{pass('pagehide','Pagehide detected')});
+document.addEventListener('keydown',e=>{
+ const k=(e.key||'').toLowerCase();
+ if((e.ctrlKey||e.metaKey)&&k==='p'){e.preventDefault();pass('printkey','Print shortcut detected');lock('print-shortcut')}
+ else if((e.ctrlKey||e.metaKey)&&k==='s'){e.preventDefault();pass('save','Save shortcut detected');lock('save-shortcut')}
+ else if((e.ctrlKey||e.metaKey)&&k==='u'){e.preventDefault();pass('source','View-source shortcut detected');lock('view-source-shortcut')}
+ else if(e.ctrlKey&&e.shiftKey&&['i','j','s'].includes(k)){e.preventDefault();pass('devtools','DevTools shortcut detected');lock('developer-tools-shortcut')}
+});
+render();
+</script>
+</body>
+</html>
