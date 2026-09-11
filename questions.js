@@ -52,27 +52,37 @@ window.questionsData=[
 ];
 window.sections=[[1,12,'Atmospheric Pressure & Barometer'],[13,25,'Pressure in a Liquid & Manometer'],[26,38,"Archimedes' Principle & Buoyancy"],[39,50,"Pascal's Law & Applications"]];
 
-/* Mobile exam hardening. Browser-level controls only; OS-level screenshots cannot be blocked by a normal website. */
+/* Mobile hardening: normal vertical scrolling and single-tap answer selection remain allowed. */
 (function(){
-  const css=document.createElement('style');
-  css.textContent='html,body,.app{-webkit-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important}input{user-select:text!important;-webkit-user-select:text!important}';
-  document.head.appendChild(css);
-  const active=()=>typeof examIsActive==='function'&&examIsActive();
-  const violate=(reason)=>{if(active()&&typeof markViolation==='function')markViolation(reason)};
-  document.addEventListener('selectstart',e=>{if(active())e.preventDefault()},{passive:false});
-  document.addEventListener('dragstart',e=>{if(active())e.preventDefault()},{passive:false});
-  document.addEventListener('gesturestart',e=>{if(active()){e.preventDefault();violate('gesture-zoom')}},{passive:false});
-  document.addEventListener('gesturechange',e=>{if(active())e.preventDefault()},{passive:false});
-  document.addEventListener('gestureend',e=>{if(active())e.preventDefault()},{passive:false});
-  document.addEventListener('touchstart',e=>{if(active()&&e.touches.length>1){e.preventDefault();violate('multi-touch')}},{passive:false});
-  document.addEventListener('touchmove',e=>{if(active()&&e.touches.length>1)e.preventDefault()},{passive:false});
-  let longPressTimer=null;
-  document.addEventListener('touchstart',e=>{if(!active()||e.touches.length!==1)return;longPressTimer=setTimeout(()=>violate('long-press'),550)},{passive:true});
-  document.addEventListener('touchend',()=>{clearTimeout(longPressTimer)},{passive:true});
-  document.addEventListener('touchmove',()=>{clearTimeout(longPressTimer)},{passive:true});
-  window.addEventListener('orientationchange',()=>{violate('orientation-change')});
-  window.addEventListener('popstate',()=>{if(active()){history.pushState({exam:true},'',location.href);violate('back-navigation')}});
-  window.addEventListener('hashchange',()=>{violate('navigation-change')});
-  window.addEventListener('fullscreenchange',()=>{if(active()&&!document.fullscreenElement)violate('fullscreen-exit')});
-  try{history.replaceState({examGuard:true},'',location.href);history.pushState({examGuard:true},'',location.href)}catch(e){}
+  const examActive=()=>!!document.getElementById('exam')?.classList.contains('active');
+  let locked=false,lastOrientation=innerWidth>innerHeight?'landscape':'portrait';
+  const currentId=()=>{const s=document.getElementById('student')?.textContent||'';const m=s.match(/11MM\s*\d{3}/i);return m?m[0].replace(/\s+/g,' ').toUpperCase():''};
+  function lock(reason){
+    if(!examActive()||locked)return;locked=true;
+    const sid=currentId();
+    try{if(sid)localStorage.setItem('physics_exam_locked_'+sid,'1')}catch(e){}
+    const o=document.createElement('div');o.id='mobileSecurityLock';o.style.cssText='position:fixed;inset:0;z-index:100000;background:#8b0000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:Padauk,Arial,sans-serif';
+    o.innerHTML='<div><div style="font-size:60px">⚠️</div><h1 style="font-size:clamp(28px,8vw,48px)">စာမေးပွဲ ပိတ်ထားပါသည်</h1><p style="font-size:18px;line-height:1.8">စာမေးပွဲဖြေဆိုနေစဉ် ခွင့်မပြုထားသော လုပ်ဆောင်ချက်ကို တွေ့ရှိထားပါသည်။</p><p>Security event: '+reason+'</p></div>';document.body.appendChild(o);document.body.style.overflow='hidden';
+  }
+  const restricted=()=>examActive();
+  document.addEventListener('selectstart',e=>{if(restricted())e.preventDefault()},{passive:false});
+  document.addEventListener('dragstart',e=>{if(restricted())e.preventDefault()},{passive:false});
+  document.addEventListener('contextmenu',e=>{if(restricted()){e.preventDefault();lock('context-menu')}});
+  document.addEventListener('copy',e=>{if(restricted()){e.preventDefault();lock('copy')}});
+  document.addEventListener('cut',e=>{if(restricted()){e.preventDefault();lock('cut')}});
+  document.addEventListener('gesturestart',e=>{if(restricted()){e.preventDefault();lock('pinch-zoom')}},{passive:false});
+  document.addEventListener('gesturechange',e=>{if(restricted())e.preventDefault()},{passive:false});
+  document.addEventListener('gestureend',e=>{if(restricted())e.preventDefault()},{passive:false});
+  document.addEventListener('touchstart',e=>{if(restricted()&&e.touches.length>1){e.preventDefault();lock('multi-touch')}},{passive:false});
+  document.addEventListener('touchmove',e=>{if(restricted()&&e.touches.length>1)e.preventDefault()},{passive:false});
+  document.addEventListener('wheel',e=>{if(restricted()&&e.ctrlKey){e.preventDefault();lock('zoom-wheel')}},{passive:false});
+  let lp=null;document.addEventListener('touchstart',e=>{if(restricted()&&e.touches.length===1)lp=setTimeout(()=>lock('long-press'),650)},{passive:true});document.addEventListener('touchend',()=>clearTimeout(lp),{passive:true});document.addEventListener('touchmove',()=>clearTimeout(lp),{passive:true});
+  document.addEventListener('keydown',e=>{if(!restricted())return;const k=(e.key||'').toLowerCase();if(e.key==='F12'||k==='printscreen'||(e.ctrlKey&&['p','s','u','c'].includes(k))||(e.metaKey&&['p','s','u','c'].includes(k))||(e.ctrlKey&&e.shiftKey&&['i','j','c','s'].includes(k))){e.preventDefault();lock('restricted-key')}});
+  document.addEventListener('visibilitychange',()=>{if(restricted()&&document.hidden)lock('app-or-tab-switch')});
+  window.addEventListener('beforeprint',()=>{if(restricted())lock('print')});
+  window.addEventListener('pagehide',()=>{if(restricted())lock('pagehide')});
+  window.addEventListener('hashchange',()=>{if(restricted())lock('navigation-change')});
+  window.addEventListener('popstate',()=>{if(restricted()){try{history.pushState({examGuard:true},'',location.href)}catch(e){}lock('back-navigation')}});
+  window.addEventListener('orientationchange',()=>{if(!restricted())return;const now=innerWidth>innerHeight?'landscape':'portrait';if(now!==lastOrientation)lock('orientation-change');lastOrientation=now});
+  document.addEventListener('fullscreenchange',()=>{if(restricted()&&!document.fullscreenElement)lock('fullscreen-exit')});
 })();
