@@ -1,0 +1,1 @@
+export function forcedAbsent(id,date){const k=String(id??'').trim().toUpperCase();const rules={'11MM 006':['2026-09-10','2026-09-11'],'11MM 010':['2026-09-09','2026-09-10','2026-09-11','2026-09-14']};return (rules[k]||[]).includes(date)}
