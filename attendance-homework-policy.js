@@ -10,6 +10,7 @@ export const STUDENT_ATTENDANCE={
 };
 export const HOMEWORK_DAILY=['11MM 002','11MM 003','11MM 006','11MM 008','11MM 009'];
 export function today(){return new Date().toISOString().slice(0,10)}
+export function isForcedAbsent(id,date){return !!(STUDENT_ATTENDANCE[id]?.absent||[]).includes(date)}
 export function schoolDates(){
   const out=[];let d=new Date(SCHOOL_START+'T00:00:00');const end=new Date(today()+'T00:00:00');
   while(d<=end){const day=d.getDay();if(day!==0&&day!==6)out.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}
