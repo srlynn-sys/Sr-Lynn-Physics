@@ -1,1 +1,40 @@
-<!doctype html><html lang="my"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Student Results</title><link rel="stylesheet" href="academic.css"></head><body><main class="wrap"><div class="top"><div class="brand">GRADE 11 PHYSICS</div><a class="back" href="index.html">← Home</a></div><section class="hero"><h1>📊 Student Grading Results</h1><p>Academic result center</p></section><section class="stats"><div class="stat"><b>10%</b>Attendance</div><div class="stat"><b>20%</b>Homework</div><div class="stat"><b>10%</b>Participation</div><div class="stat"><b>60%</b>Test</div></section></main></body></html>
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Grading Results</title>
+<link rel="stylesheet" href="academic.css">
+<style>
+.result-card{max-width:900px;margin:24px auto}.grade-table{width:100%;border-collapse:collapse}.grade-table th,.grade-table td{padding:12px;border-bottom:1px solid #dbe3ee;text-align:center}.grade-table th{background:#0f2747;color:#fff}.grade-a{font-weight:800;font-size:1.25rem}.note{background:#f6f8fb;border-left:4px solid #c9a227;padding:14px;border-radius:8px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top"><div class="brand">GRADE 11 PHYSICS</div><a class="back" href="index.html">← Home</a></div>
+<section class="hero"><h1>📊 Student Grading Results</h1><p>Attendance + Participation + Homework + Test = 200 marks</p></section>
+<section class="stats">
+<div class="stat"><b>40</b>Attendance</div>
+<div class="stat"><b>30</b>Participation</div>
+<div class="stat"><b>30</b>Homework</div>
+<div class="stat"><b>100</b>Test</div>
+</section>
+<section class="panel result-card">
+<h2>🏆 Grading System</h2>
+<table class="grade-table">
+<thead><tr><th>Total Marks</th><th>Grade</th></tr></thead>
+<tbody>
+<tr><td>0–79</td><td>D</td></tr>
+<tr><td>80–99</td><td>C</td></tr>
+<tr><td>100–119</td><td>C*</td></tr>
+<tr><td>120–139</td><td>B</td></tr>
+<tr><td>140–159</td><td>B*</td></tr>
+<tr><td>160–179</td><td>A</td></tr>
+<tr><td>180–200</td><td class="grade-a">A*</td></tr>
+</tbody>
+</table>
+<p class="note">Final score = Attendance / 40 + Participation / 30 + Homework / 30 + Test / 100 = <strong>200 marks</strong>.</p>
+</section>
+</main>
+</body>
+</html>
