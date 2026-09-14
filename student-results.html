@@ -1,1 +1,48 @@
-<!doctype html><html lang="my"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Student Grading Results</title><link rel="stylesheet" href="academic.css"><style>.result-card{max-width:900px;margin:24px auto}.grade-table{width:100%;border-collapse:collapse}.grade-table th,.grade-table td{padding:12px;border-bottom:1px solid #dbe3ee;text-align:center}.grade-table th{background:#0f2747;color:#fff}.grade-a{font-weight:800;font-size:1.25rem}.note{background:#f6f8fb;border-left:4px solid #c9a227;padding:14px;border-radius:8px}.official{background:#fff8df;border:1px solid #e5cc69;padding:15px;border-radius:10px;margin:14px 0;font-weight:700}.formula{font-size:1.05rem;line-height:1.8}</style></head><body><main class="wrap"><div class="top"><div class="brand">GRADE 11 PHYSICS</div><a class="back" href="index.html">← Home</a></div><section class="hero"><h1>📊 Student Grading Results</h1><p>Attendance + Participation + Homework + Official Test = 200 marks</p></section><section class="stats"><div class="stat"><b>40</b>Attendance</div><div class="stat"><b>30</b>Participation</div><div class="stat"><b>30</b>Homework</div><div class="stat"><b>100</b>Official Test</div></section><section class="panel result-card"><div class="official">🏆 Final Grading အတွက် Test ရမှတ်ကို <strong>Official Test</strong> မှသာ ယူမည်။ Conceptual Test ရမှတ်ကို Final Grading တွင် မထည့်ပါ။</div><h2>🏆 Grading System</h2><table class="grade-table"><thead><tr><th>Total Marks</th><th>Grade</th></tr></thead><tbody><tr><td>0–79</td><td>D</td></tr><tr><td>80–99</td><td>C</td></tr><tr><td>100–119</td><td>C*</td></tr><tr><td>120–139</td><td>B</td></tr><tr><td>140–159</td><td>B*</td></tr><tr><td>160–179</td><td>A</td></tr><tr><td>180–200</td><td class="grade-a">A*</td></tr></tbody></table><p class="note formula">Final score = Attendance / 40 + Participation / 30 + Homework / 30 + <strong>Official Test / 100</strong> = <strong>200 marks</strong>.</p><p class="note">Conceptual Test သည် လေ့ကျင့်ရန်/နားလည်မှုစစ်ရန်အတွက်သာ ဖြစ်ပြီး Final Grade တွင် မပါဝင်ပါ။</p></section></main></body></html>
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Grading Results</title>
+<link rel="stylesheet" href="academic.css">
+<style>
+.result-card{max-width:980px;margin:24px auto}.grade-table,.score-table{width:100%;border-collapse:collapse}.grade-table th,.grade-table td,.score-table th,.score-table td{padding:11px;border-bottom:1px solid #dbe3ee;text-align:center}.grade-table th,.score-table th{background:#0f2747;color:#fff}.grade-a{font-weight:800;font-size:1.25rem}.note{background:#f6f8fb;border-left:4px solid #c9a227;padding:14px;border-radius:8px}.official{background:#fff8df;border:1px solid #e5cc69;padding:15px;border-radius:10px;margin:14px 0;font-weight:700}.formula{font-size:1.04rem;line-height:1.8}.percent{font-size:1.35rem;font-weight:800}.muted{color:#718090;font-size:.9rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top"><div class="brand">GRADE 11 PHYSICS</div><a class="back" href="index.html">← Home</a></div>
+<section class="hero"><h1>📊 Student Grading Results</h1><p>Percentage-based Final Grading</p></section>
+<section class="stats"><div class="stat"><b>40</b>Attendance</div><div class="stat"><b>30</b>Participation</div><div class="stat"><b>30</b>Homework</div><div class="stat"><b>100</b>Official Test</div></section>
+<section class="panel result-card">
+<div class="official">🏆 Final Grading အတွက် Test ရမှတ်ကို <strong>Official Test</strong> မှသာ ယူမည်။ Conceptual Test ရမှတ်ကို Final Grading တွင် မထည့်ပါ။</div>
+<h2>📐 Final Percentage Calculation</h2>
+<p class="formula">အပေါ်က component တစ်ခုချင်းစီရဲ့ ရမှတ်ကို သူ့ရဲ့ maximum mark နဲ့စားပြီး percentage ယူမယ်။</p>
+<table class="score-table">
+<thead><tr><th>Component</th><th>ရမှတ်</th><th>Maximum</th><th>Percentage</th></tr></thead>
+<tbody>
+<tr><td>Attendance</td><td>36</td><td>40</td><td class="percent">90%</td></tr>
+<tr><td>Participation</td><td>25</td><td>30</td><td class="percent">83.33%</td></tr>
+<tr><td>Homework</td><td>27</td><td>30</td><td class="percent">90%</td></tr>
+<tr><td>Official Test</td><td>85</td><td>100</td><td class="percent">85%</td></tr>
+</tbody>
+</table>
+<p class="note formula"><strong>Overall Percentage = (Attendance + Participation + Homework + Official Test) ÷ 200 × 100</strong></p>
+<p class="note">ဥပမာ — 36 + 25 + 27 + 85 = 173 / 200 → <strong>86.5%</strong></p>
+<h2 style="margin-top:22px">🏆 Grade System</h2>
+<table class="grade-table">
+<thead><tr><th>Percentage</th><th>Grade</th></tr></thead>
+<tbody>
+<tr><td>0%–39.49%</td><td>D</td></tr>
+<tr><td>40%–49.49%</td><td>C</td></tr>
+<tr><td>50%–59.49%</td><td>C*</td></tr>
+<tr><td>60%–69.49%</td><td>B</td></tr>
+<tr><td>70%–79.49%</td><td>B*</td></tr>
+<tr><td>80%–89.49%</td><td>A</td></tr>
+<tr><td>90%–100%</td><td class="grade-a">A*</td></tr>
+</tbody>
+</table>
+<p class="note muted">Final grading တွင် Conceptual Test မပါဝင်ပါ။ Official Test သည် 100 marks အပြည့်ဖြင့်သာ Final Grade တွက်ရာတွင် အသုံးပြုမည်။</p>
+</section>
+</main>
+</body>
+</html>
