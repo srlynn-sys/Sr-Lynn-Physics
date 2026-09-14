@@ -1,1 +1,32 @@
-<!doctype html><html lang="my"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Report Card Generators</title><link rel="stylesheet" href="academic.css"><style>.option{display:block;text-decoration:none;color:inherit;padding:24px;margin:14px 0;border:1px solid #dbe3ee;border-radius:18px;background:#fff;box-shadow:0 10px 25px #0f274710;transition:.2s}.option:hover{transform:translateY(-3px);box-shadow:0 16px 32px #0f27451c}.option b{display:block;font-size:1.2rem;margin-bottom:7px}.icon{font-size:2rem;margin-bottom:8px}.grade{border-color:#cbddea;background:linear-gradient(135deg,#f4f9ff,#fff)}.att{border-color:#cfe6d8;background:linear-gradient(135deg,#f3fff7,#fff)}</style></head><body><main class="wrap"><div class="top"><div class="brand">GRADE 11 PHYSICS</div><a class="back" href="index.html">← Home</a></div><section class="hero"><h1>🧾 Report Card Generators</h1><p>Choose the report type</p></section><section class="panel"><a class="option grade" href="student-results-live.html"><div class="icon">🎓</div><b>For Grading</b><span>Attendance + Participation + Homework + Official Test ကို စုပေါင်းပြီး Final Grading / Report Card ထုတ်ရန်။</span></a><a class="option att" href="attendance-report.html"><div class="icon">📅</div><b>For attending</b><span>All Students Attendance list, Present / Absent / Leave နှင့် Attendance % ကို table အဖြစ်ကြည့်ပြီး PNG / PDF ပုံထုတ်ရန်။</span></a></section></main></body></html>
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report Card Generators</title>
+<link rel="stylesheet" href="academic.css">
+<style>
+.option{display:block;text-decoration:none;color:inherit;padding:24px;margin:14px 0;border:1px solid #dbe3ee;border-radius:18px;background:#fff;box-shadow:0 10px 25px #0f274710;transition:.2s}.option:hover{transform:translateY(-3px);box-shadow:0 16px 32px #0f27451c}.option b{display:block;font-size:1.2rem;margin-bottom:7px}.icon{font-size:2rem;margin-bottom:8px}.grade{border-color:#cbddea;background:linear-gradient(135deg,#f4f9ff,#fff)}.att{border-color:#cfe6d8;background:linear-gradient(135deg,#f3fff7,#fff)}
+.sources{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.db{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:#eef4f8;border:1px solid #d5e0e8;color:#29445b;font-size:.78rem;font-weight:800}.live{margin:0 0 16px;padding:12px 14px;border-radius:14px;background:#edf8f1;border:1px solid #cfe6d8;color:#216443;font-weight:750;line-height:1.55}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top"><div class="brand">GRADE 11 PHYSICS</div><a class="back" href="index.html">← Home</a></div>
+<section class="hero"><h1>🧾 Report Card Generators</h1><p>Choose the report type</p></section>
+<section class="panel">
+<div class="live">🔗 <b>Firebase Live Data</b><br>အောက်က report နှစ်ခုဟာ သက်ဆိုင်ရာ Firestore database collection တွေကို တိုက်ရိုက်ဖတ်ပြီး data update ဖြစ်တာနဲ့ report ကို refresh လုပ်ပေးပါသည်။</div>
+<a class="option grade" href="student-results-live.html">
+<div class="icon">🎓</div><b>For Grading</b>
+<span>Attendance + Participation + Homework + Official Test ကို စုပေါင်းပြီး Final Grading / Report Card ထုတ်ရန်။</span>
+<div class="sources"><span class="db">📅 attendance_records</span><span class="db">🙋 participation_records</span><span class="db">📚 homework_records</span><span class="db">📝 physics_official_results</span></div>
+</a>
+<a class="option att" href="attendance-report.html">
+<div class="icon">📅</div><b>For attending</b>
+<span>All Students Attendance list, Present / Absent / Leave နှင့် Attendance % ကို table အဖြစ်ကြည့်ပြီး PNG / PDF ပုံထုတ်ရန်။</span>
+<div class="sources"><span class="db">📅 attendance_records</span><span class="db">👥 firebase-data.js → students</span><span class="db">📆 attendance-homework-policy.js</span></div>
+</a>
+</section>
+</main>
+</body>
+</html>
