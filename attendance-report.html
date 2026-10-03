@@ -16,7 +16,7 @@ body{background:#fff}
 .report th,.report td{border-right:1px solid rgba(30,45,60,.16);border-bottom:1px solid rgba(30,45,60,.16);padding:10px 8px;text-align:center;height:38px;background:rgba(255,255,255,.28)}
 .report th{background:rgba(255,255,255,.42);color:#111;font-weight:800}
 .report td.name{text-align:left}.report tr:last-child td{border-bottom:0}.report th:last-child,.report td:last-child{border-right:0}
-.signature{position:absolute;right:48px;bottom:32px;text-align:center;font-size:14px;line-height:1.5}
+.signature{position:absolute;right:48px;bottom:32px;text-align:center;font-size:14px;line-height:1.5}.signature .sir-lynn{font-family:"Brush Script MT","Segoe Script","Lucida Handwriting",cursive;font-size:30px;font-style:italic;font-weight:600;line-height:1.05;margin-bottom:2px}
 .signature .line{width:150px;border-top:1px solid #222;margin-bottom:4px}
 .sheet{position:fixed;left:-20000px;top:0}
 @media(max-width:700px){.report{width:794px}.report-wrap{overflow:auto}}
@@ -41,7 +41,7 @@ function build(){
  const all=ids.flatMap(id=>monthRows(id,ym));
  const classDays=[...new Set(all.map(x=>x.date).filter(Boolean))].sort();
  const rows=ids.map(id=>{const r=monthRows(id,ym),p=r.filter(x=>String(x.status).toLowerCase()==='present').length;return{id,name:students[id],present:p,pct:classDays.length?p/classDays.length*100:0}}).sort((a,b)=>a.id.localeCompare(b.id));
- report.innerHTML='<div class="report-header"><img class="report-logo" crossorigin="anonymous" src="'+LOGO+'"><div class="school">VICTORY LAND FEDERAL SCHOOL</div><div class="subject">Subject-Physics</div></div><table><thead><tr><th>No</th><th>Code</th><th>Name</th><th>Total Present Day</th><th>Percentage</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.id+'</td><td class="name">'+r.name+'</td><td>'+r.present+'</td><td>'+r.pct.toFixed(2)+'%</td></tr>').join('')+'</tbody></table><div class="signature"><div class="line"></div><div>Teacher Sign</div></div></div>';
+ report.innerHTML='<div class="report-header"><img class="report-logo" crossorigin="anonymous" src="'+LOGO+'"><div class="school">VICTORY LAND FEDERAL SCHOOL</div><div class="subject">Subject-Physics</div></div><table><thead><tr><th>No</th><th>Code</th><th>Name</th><th>Total Present Day</th><th>Percentage</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.id+'</td><td class="name">'+r.name+'</td><td>'+r.present+'</td><td>'+r.pct.toFixed(2)+'%</td></tr>').join('')+'</tbody></table><div class="signature"><div class="sir-lynn">Sir Lynn</div><div class="line"></div><div>Teacher Sign</div></div></div>';
 }
 async function canvas(){sheet.innerHTML=report.outerHTML;sheet.style.display='block';await new Promise(r=>setTimeout(r,250));const c=await html2canvas(sheet,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:false});sheet.style.display='none';return c}
 png.onclick=async()=>{const c=await canvas(),a=document.createElement('a');a.download='Attendance_List_'+monthEl.value+'.png';a.href=c.toDataURL('image/png');a.click()};
