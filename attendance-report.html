@@ -6,16 +6,16 @@ body{background:#fff}
 .btn{border:1px solid #142b43;border-radius:8px;padding:10px 15px;background:#142b43;color:#fff;font-weight:800;cursor:pointer}
 .report-wrap{overflow:auto}
 .report{position:relative;width:794px;min-height:1123px;background:#fff;color:#111;padding:48px 48px 55px;box-sizing:border-box;font-family:Arial,"Noto Sans Myanmar",sans-serif;border:0;overflow:hidden}
-.report:before{content:"";position:absolute;inset:0;background:url('https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ') center center/330px auto no-repeat;opacity:.055;filter:grayscale(1);pointer-events:none}
+.report:before{content:"";position:absolute;inset:0;background:url('https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ') center center/330px auto no-repeat;opacity:.14;filter:grayscale(1);pointer-events:none}
 .report>*{position:relative;z-index:1}
 .report-header{text-align:center;margin-bottom:28px}
 .report-logo{width:72px;height:72px;object-fit:contain;display:block;margin:0 auto 10px}
 .school{font-size:25px;font-weight:800;line-height:1.25}
 .subject{font-size:20px;font-weight:700;margin-top:6px}
-.report table{width:100%;border-collapse:collapse;font-size:14px;background:rgba(255,255,255,.94)}
-.report th,.report td{border:1px solid #222;padding:10px 8px;text-align:center;height:38px}
-.report th{background:#fff;color:#111;font-weight:800}
-.report td.name{text-align:left}
+.report table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;background:rgba(255,255,255,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.75);border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.report th,.report td{border-right:1px solid rgba(30,45,60,.16);border-bottom:1px solid rgba(30,45,60,.16);padding:10px 8px;text-align:center;height:38px;background:rgba(255,255,255,.28)}
+.report th{background:rgba(255,255,255,.42);color:#111;font-weight:800}
+.report td.name{text-align:left}.report tr:last-child td{border-bottom:0}.report th:last-child,.report td:last-child{border-right:0}
 .signature{position:absolute;right:48px;bottom:32px;text-align:center;font-size:14px;line-height:1.5}
 .signature .line{width:150px;border-top:1px solid #222;margin-bottom:4px}
 .sheet{position:fixed;left:-20000px;top:0}
@@ -41,7 +41,7 @@ function build(){
  const all=ids.flatMap(id=>monthRows(id,ym));
  const classDays=[...new Set(all.map(x=>x.date).filter(Boolean))].sort();
  const rows=ids.map(id=>{const r=monthRows(id,ym),p=r.filter(x=>String(x.status).toLowerCase()==='present').length;return{id,name:students[id],present:p,pct:classDays.length?p/classDays.length*100:0}}).sort((a,b)=>a.id.localeCompare(b.id));
- report.innerHTML='<div class="report-header"><img class="report-logo" crossorigin="anonymous" src="'+LOGO+'"><div class="school">VICTORY LAND FEDERAL SCHOOL</div><div class="subject">Subject-Physics</div></div><table><thead><tr><th>No</th><th>Code</th><th>Name</th><th>Total Present Day</th><th>Percentage</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.id+'</td><td class="name">'+r.name+'</td><td>'+r.present+'</td><td>'+r.pct.toFixed(2)+'%</td></tr>').join('')+'</tbody></table><div class="signature"><div class="line"></div><div>Sir Lynn</div><div>Teacher Sign</div></div>';
+ report.innerHTML='<div class="report-header"><img class="report-logo" crossorigin="anonymous" src="'+LOGO+'"><div class="school">VICTORY LAND FEDERAL SCHOOL</div><div class="subject">Subject-Physics</div></div><table><thead><tr><th>No</th><th>Code</th><th>Name</th><th>Total Present Day</th><th>Percentage</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.id+'</td><td class="name">'+r.name+'</td><td>'+r.present+'</td><td>'+r.pct.toFixed(2)+'%</td></tr>').join('')+'</tbody></table><div class="signature"><div class="line"></div><div>Teacher Sign</div></div></div>';
 }
 async function canvas(){sheet.innerHTML=report.outerHTML;sheet.style.display='block';await new Promise(r=>setTimeout(r,250));const c=await html2canvas(sheet,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:false});sheet.style.display='none';return c}
 png.onclick=async()=>{const c=await canvas(),a=document.createElement('a');a.download='Attendance_List_'+monthEl.value+'.png';a.href=c.toDataURL('image/png');a.click()};
