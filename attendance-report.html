@@ -25,7 +25,7 @@ import{initializeApp}from'https://www.gstatic.com/firebasejs/12.2.1/firebase-app
 import{getFirestore,collection,onSnapshot,doc}from'https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js';
 import{firebaseConfig,students,studentIds,myanmarDateTime}from'./firebase-data.js';
 import{historicalAttendance}from'./attendance-homework-policy.js';
-const db=getFirestore(initializeApp(firebaseConfig)),LOGO='https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ'),ids=studentIds;
+const db=getFirestore(initializeApp(firebaseConfig)),LOGO='https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ',ids=studentIds;
 let records=[],settings={};
 const monthEl=document.getElementById('month'),today=()=>myanmarDateTime().date;
 const now=today().slice(0,7);monthEl.value=now;
