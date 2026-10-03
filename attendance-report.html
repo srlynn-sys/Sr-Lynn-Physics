@@ -33,14 +33,11 @@ const same=(a,b)=>String(a??'').trim().toUpperCase()===String(b??'').trim().toUp
 const vt=v=>v&&typeof v.toMillis==='function'?v.toMillis():v instanceof Date?v.getTime():typeof v==='number'?v:new Date(v).getTime()||0;
 const tm=x=>vt(x?.timestamp)||vt(x?.updatedAt)||vt(x?.date&&x?.time?x.date+'T'+x.time:x?.date?x.date+'T00:00:00':0);
 const cut=()=>Math.max(...[settings.allResetAt,settings.gradingResetAt,settings.attendanceResetAt].filter(Boolean).map(vt).filter(Boolean),0);
-function realRows(id){const c=cut(),m={};historicalAttendance(id).filter(x=>x.date<=today()&&(!c||tm(x)>=c)).forEach(x=>m[x.date]=x);records.filter(x=>same(x.id,id)&&x.date<=today()&&(!c||tm(x)>=c)).forEach(x=>m[x.date]={...m[x.date],...x});return Object.values(m).filter(x=>x.status)}
+function realRows(id){const c=cut(),m={};historicalAttendance(id).filter(x=>x.date>=SCHOOL_START&&x.date<=today()&&(!c||tm(x)>=c)).forEach(x=>m[x.date]=x);records.filter(x=>same(x.id,id)&&x.date>=SCHOOL_START&&x.date<=today()&&(!c||tm(x)>=c)).forEach(x=>m[x.date]={...m[x.date],...x});return Object.values(m).filter(x=>x.status)}
 function monthRows(id,ym){return realRows(id).filter(x=>String(x.date||'').slice(0,7)===ym)}
-function monthLabel(ym){const [y,m]=ym.split('-').map(Number);return new Date(y,m-1,1).toLocaleString('en-US',{month:'long',year:'numeric'})}
 function build(){
  const ym=monthEl.value||now;
- const all=ids.flatMap(id=>monthRows(id,ym));
- const classDays=[...new Set(all.map(x=>x.date).filter(Boolean))].sort();
- const rows=ids.map(id=>{const r=monthRows(id,ym),p=r.filter(x=>String(x.status).toLowerCase()==='present').length;return{id,name:students[id],present:p,pct:classDays.length?p/classDays.length*100:0}}).sort((a,b)=>a.id.localeCompare(b.id));
+ const rows=ids.map(id=>{const r=monthRows(id,ym),p=r.filter(x=>String(x.status).trim().toLowerCase()==='present').length;return{id,name:students[id],present:p,pct:r.length?p/r.length*100:0}}).sort((a,b)=>a.id.localeCompare(b.id));
  report.innerHTML='<div class="report-header"><img class="report-logo" crossorigin="anonymous" src="'+LOGO+'"><div class="school">VICTORY LAND FEDERAL SCHOOL</div><div class="subject">Subject-Physics</div></div><table><thead><tr><th>No</th><th>Code</th><th>Name</th><th>Total Present Day</th><th>Percentage</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.id+'</td><td class="name">'+r.name+'</td><td>'+r.present+'</td><td>'+r.pct.toFixed(2)+'%</td></tr>').join('')+'</tbody></table><div class="signature"><div class="sir-lynn">Sir Lynn</div><div class="line"></div><div>Teacher Sign</div></div></div>';
 }
 async function canvas(){sheet.innerHTML=report.outerHTML;sheet.style.display='block';await new Promise(r=>setTimeout(r,250));const c=await html2canvas(sheet,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:false});sheet.style.display='none';return c}
