@@ -2,7 +2,7 @@
 <div class="cert-actions"><button type="button" class="btn" id="certPngBtn">🖼️ Certificate PNG</button><button type="button" class="btn" id="certPdfBtn">📄 Certificate PDF</button><button type="button" class="btn alt" id="certCloseBtn">✕ Close</button></div>
 <div id="certificateCanvas" class="certificate">
 <div class="wave wave-tl"></div><div class="wave wave-tr"></div><div class="wave wave-bl"></div><div class="wave wave-br"></div>
-<div class="cert-inner">
+<img class="cert-watermark" src="https://lh3.googleusercontent.com/d/14aXibkOqVCRpTfzKBn3ahkZL4WpVnQYgQ" alt="" aria-hidden="true"><div class="cert-inner">
 <div class="cert-badge">★<span>GOLD<br>AWARD</span></div>
 <div class="cert-head">
 <img class="cert-logo" src="https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ" alt="School Logo">
@@ -23,15 +23,53 @@
 </div>
 <div class="cert-ribbon">PHYSICS · CONCEPTUAL TEST</div>
 </div></div></div><style>
-.cert-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(10,22,35,.72);backdrop-filter:blur(10px);overflow:auto;padding:18px}
+.cert-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(10,18,28,.78);backdrop-filter:blur(8px);overflow:auto;padding:18px}
 .cert-modal.open{display:flex;flex-direction:column;align-items:center}
 .cert-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
-.certificate{width:1120px;min-height:790px;background:linear-gradient(135deg,#fff,#fffdf5);position:relative;overflow:hidden;border:10px solid #c8a22a;box-shadow:0 25px 70px rgba(0,0,0,.3);font-family:Georgia,'Times New Roman',serif;color:#173b59}
-.cert-inner{position:relative;z-index:2;margin:24px;border:2px solid #d4af37;min-height:688px;padding:32px 50px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.cert-head{width:100%;border-bottom:2px solid #d4af37;padding-bottom:15px}.cert-logo{width:70px;height:70px;object-fit:contain}.cert-school{font-size:25px;font-weight:900;letter-spacing:1px}.cert-sub{font-size:16px;margin-top:4px}.cert-title{font-size:31px;font-weight:900;letter-spacing:3px;color:#a57b08;margin-top:14px}.cert-present{font-size:18px;margin-top:28px}.cert-name{font-size:39px;font-weight:900;color:#173b59;margin-top:10px;border-bottom:1px solid #d4af37;padding:0 38px 5px}.cert-id{font-size:15px;margin-top:8px;letter-spacing:2px}.cert-line{width:75%;height:1px;background:#d4af37;margin:18px auto}.cert-result{display:flex;gap:80px;justify-content:center;margin:4px 0 12px}.cert-result div{min-width:150px}.cert-result small{display:block;font-size:12px;letter-spacing:2px}.cert-result strong{display:block;font-size:27px;margin-top:4px;color:#a57b08}.cert-message{font-size:16px;margin:10px 0 18px}.cert-footer{width:100%;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;margin-top:auto;padding-top:15px}.cert-sign{font-family:Arial,sans-serif;font-size:13px}.signature{font-family:'Brush Script MT','Segoe Script',cursive;font-size:38px;font-style:italic;color:#173b59;margin-bottom:-4px}.cert-qr{display:flex;flex-direction:column;align-items:center;font-family:Arial,sans-serif;font-size:11px}.cert-qr canvas,.cert-qr img{width:92px!important;height:92px!important;background:#fff;padding:5px}.cert-qr small{font-weight:800;margin-top:4px}.cert-qr span{max-width:220px;word-break:break-all;font-size:7px;color:#667}.cert-date{font-family:Arial,sans-serif;font-size:13px;display:flex;flex-direction:column;gap:4px}.cert-date strong{font-size:15px}.cert-badge{position:absolute;right:28px;top:28px;width:94px;height:94px;border-radius:50%;background:radial-gradient(circle,#ffe98a 0 34%,#d4af37 35% 58%,#9d7400 59% 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;font:bold 30px Georgia;box-shadow:0 5px 12px #0003;z-index:4}.cert-badge span{font:900 9px Arial;line-height:1.05;letter-spacing:1px}.cert-ribbon{position:absolute;bottom:17px;left:50%;transform:translateX(-50%);background:#173b59;color:#fff;padding:7px 28px;font:700 11px Arial;letter-spacing:2px}.wave{position:absolute;width:190px;height:90px;opacity:.8;border:6px solid #d4af37;border-left-color:transparent;border-right-color:transparent;border-radius:50%;z-index:1}.wave-tl{left:-75px;top:-35px;transform:rotate(25deg)}.wave-tr{right:-75px;top:-35px;transform:rotate(-25deg)}.wave-bl{left:-75px;bottom:-35px;transform:rotate(-25deg)}.wave-br{right:-75px;bottom:-35px;transform:rotate(25deg)}
+.certificate{width:1120px;min-height:790px;position:relative;overflow:hidden;background:#f8f1df;border:3px solid #b28a24;box-shadow:none;color:#1b3150;font-family:Georgia,'Times New Roman',serif}
+.certificate:before{content:"";position:absolute;inset:12px;border:1px solid #b28a24;pointer-events:none}
+.certificate:after{content:"";position:absolute;inset:20px;border:1px solid rgba(178,138,36,.65);pointer-events:none}
+.cert-watermark{position:absolute;z-index:0;left:50%;top:50%;width:410px;height:410px;object-fit:contain;transform:translate(-50%,-50%);opacity:.055;filter:grayscale(1) sepia(.25);pointer-events:none}
+.cert-inner{position:relative;z-index:2;margin:34px;min-height:688px;padding:28px 52px 34px;text-align:center;display:flex;flex-direction:column;align-items:center;border:1px solid #b28a24}
+.cert-inner:before,.cert-inner:after{content:"";position:absolute;left:8%;right:8%;height:18px;border-top:1px solid #b28a24;border-bottom:1px solid #b28a24;opacity:.8}
+.cert-inner:before{top:12px}.cert-inner:after{bottom:12px}
+.cert-head{width:100%;padding-bottom:16px;border-bottom:1px solid #b28a24}
+.cert-logo{width:64px;height:64px;object-fit:contain;opacity:.95}
+.cert-school{font-size:25px;font-weight:700;letter-spacing:2px;margin-top:4px}
+.cert-sub{font-size:15px;font-style:italic;margin-top:5px;letter-spacing:1px}
+.cert-title{font-size:30px;font-weight:700;letter-spacing:4px;color:#9a7214;margin-top:15px}
+.cert-present{font-size:17px;font-style:italic;margin-top:25px}
+.cert-name{font-size:40px;font-weight:700;color:#182f4b;margin-top:9px;padding:0 40px 6px;border-bottom:1px solid #b28a24}
+.cert-id{font-size:13px;margin-top:7px;letter-spacing:3px}
+.cert-line{width:72%;height:1px;background:#b28a24;margin:16px auto}
+.cert-result{display:flex;gap:90px;justify-content:center;margin:2px 0 10px}
+.cert-result div{min-width:150px}
+.cert-result small{display:block;font-size:10px;letter-spacing:3px}
+.cert-result strong{display:block;font-size:26px;margin-top:4px;color:#9a7214}
+.cert-message{font-size:15px;font-style:italic;margin:8px 0 15px}
+.cert-footer{width:100%;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;margin-top:auto;padding-top:12px}
+.cert-sign{font-family:Arial,sans-serif;font-size:12px}
+.signature{font-family:'Brush Script MT','Segoe Script',cursive;font-size:37px;font-style:italic;color:#18334f;margin-bottom:-3px}
+.cert-qr{display:flex;flex-direction:column;align-items:center;font-family:Arial,sans-serif;font-size:10px}
+.cert-qr canvas,.cert-qr img{width:88px!important;height:88px!important;background:#fff;padding:4px;border:1px solid #b28a24}
+.cert-qr small{font-weight:700;letter-spacing:1px;margin-top:4px}
+.cert-qr span{max-width:220px;word-break:break-all;font-size:7px;color:#5d6570}
+.cert-date{font-family:Arial,sans-serif;font-size:12px;display:flex;flex-direction:column;gap:4px}
+.cert-date strong{font-size:14px}
+.cert-badge{position:absolute;right:42px;top:40px;width:86px;height:86px;border-radius:50%;background:#d7b44a;border:3px double #8d6810;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;font:bold 28px Georgia;box-shadow:none;z-index:4}
+.cert-badge span{font:700 8px Arial;line-height:1.05;letter-spacing:1px}
+.cert-ribbon{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:#1b3150;color:#f8f1df;padding:6px 26px;border:1px solid #b28a24;font:700 10px Arial;letter-spacing:2px}
+.wave{position:absolute;width:230px;height:115px;opacity:.9;border:0;z-index:1}
+.wave:before,.wave:after{content:"";position:absolute;width:190px;height:72px;border:2px solid #b28a24;border-left-color:transparent;border-right-color:transparent;border-radius:50%}
+.wave:after{width:150px;height:56px}
+.wave-tl{left:-82px;top:-40px;transform:rotate(28deg)}
+.wave-tr{right:-82px;top:-40px;transform:rotate(-28deg)}
+.wave-bl{left:-82px;bottom:-40px;transform:rotate(-28deg)}
+.wave-br{right:-82px;bottom:-40px;transform:rotate(28deg)}
+.wave-tl:after,.wave-bl:after{left:30px;top:10px}.wave-tr:after,.wave-br:after{right:30px;top:10px}
 .cert-download-btn{white-space:nowrap}
 @media(max-width:700px){.cert-modal{padding:8px}.certificate{transform-origin:top center;transform:scale(.52);margin-bottom:-370px}.cert-actions{position:sticky;top:0}.cert-actions .btn{min-height:42px}.results-table{min-width:900px}}
-</style>
+</style>e>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script type="module">
@@ -180,6 +218,16 @@ document.addEventListener('change',e=>{if(e.target.matches('#questions input[typ
 if(firebaseReady&&settingsRef){
  onSnapshot(settingsRef,s=>{resetAt=s.exists()?(s.data().conceptualResetAt||''):'';},()=>{});
 }
+async function openCertificateFromQR(){
+ const verify=new URLSearchParams(location.search).get('verify');
+ if(!verify||!firebaseReady||!resultsRef)return;
+ try{
+   const snap=await getDocs(resultsRef);
+   let found=null;snap.forEach(d=>{const x=d.data();if(String(x.id||d.id)===verify)found=x;});
+   if(found)openCertificate({id:found.id||verify,name:found.name,score:found.score,percent:found.percentage??((Number(found.score)||0)*2),date:found.date});
+ }catch(e){console.error('Certificate verification failed:',e);}
+}
+openCertificateFromQR();
 
 function openCertificate(data){
  document.getElementById('certName').textContent=data.name||'Student';
@@ -188,9 +236,9 @@ function openCertificate(data){
  document.getElementById('certPercent').textContent=(data.percent??0)+'%';
  document.getElementById('certDate').textContent=data.date||'—';
  const qr=document.getElementById('certQR');qr.innerHTML='';
- const web=location.href.split('#')[0];
+ const web=location.origin+location.pathname+'?verify='+encodeURIComponent(data.id||'');
  document.getElementById('certWeb').textContent=web;
- if(window.QRCode)new QRCode(qr,{text:web,width:92,height:92,colorDark:'#173b59',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+ if(window.QRCode)new QRCode(qr,{text:web,width:88,height:88,colorDark:'#173b59',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
  document.getElementById('certificateModal').classList.add('open');
  document.getElementById('certificateModal').setAttribute('aria-hidden','false');
 }
