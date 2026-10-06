@@ -5,7 +5,7 @@
 <img class="cert-watermark" src="https://lh3.googleusercontent.com/d/14aXibkOqVCRpTfzKBn3ahkZL4WpVnQYgQ" alt="" aria-hidden="true"><div class="cert-inner">
 <div class="cert-badge">★<span>GOLD<br>AWARD</span></div>
 <div class="cert-head">
-<img class="cert-logo" src="https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ" alt="School Logo">
+<div class="greek-logo-ornament"><span class="laurel laurel-left">❧</span><img class="cert-logo" src="https://lh3.googleusercontent.com/d/14aXibOqVCRpTfzKBn3ahkZL4WpVnQYgQ" alt="School Logo"><span class="laurel laurel-right">❧</span></div>
 <div class="cert-school">VICTORY LAND FEDERAL SCHOOL</div>
 <div class="cert-sub">Grade 11 · Physics</div>
 <div class="cert-title">CERTIFICATE OF ACHIEVEMENT</div>
@@ -29,12 +29,12 @@
 .certificate{width:1120px;min-height:790px;position:relative;overflow:hidden;background:#f8f1df;border:3px solid #b28a24;box-shadow:none;color:#1b3150;font-family:Georgia,'Times New Roman',serif}
 .certificate:before{content:"";position:absolute;inset:12px;border:1px solid #b28a24;pointer-events:none}
 .certificate:after{content:"";position:absolute;inset:20px;border:1px solid rgba(178,138,36,.65);pointer-events:none}
-.cert-watermark{position:absolute;z-index:0;left:50%;top:50%;width:410px;height:410px;object-fit:contain;transform:translate(-50%,-50%);opacity:.055;filter:grayscale(1) sepia(.25);pointer-events:none}
+.cert-watermark{position:absolute;z-index:0;left:50%;top:53%;width:500px;height:500px;object-fit:contain;transform:translate(-50%,-50%);opacity:.075;filter:grayscale(1);pointer-events:none}
 .cert-inner{position:relative;z-index:2;margin:34px;min-height:688px;padding:28px 52px 34px;text-align:center;display:flex;flex-direction:column;align-items:center;border:1px solid #b28a24}
 .cert-inner:before,.cert-inner:after{content:"";position:absolute;left:8%;right:8%;height:18px;border-top:1px solid #b28a24;border-bottom:1px solid #b28a24;opacity:.8}
 .cert-inner:before{top:12px}.cert-inner:after{bottom:12px}
 .cert-head{width:100%;padding-bottom:16px;border-bottom:1px solid #b28a24}
-.cert-logo{width:64px;height:64px;object-fit:contain;opacity:.95}
+.cert-logo{width:64px;height:64px;object-fit:contain;opacity:.95}.greek-logo-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin:2px auto 3px;position:relative}.greek-logo-ornament:before,.greek-logo-ornament:after{content:"";width:105px;height:18px;border-top:2px solid #b28a24;border-bottom:2px solid #b28a24;background:repeating-linear-gradient(90deg,transparent 0 8px,#b28a24 8px 10px,transparent 10px 18px);opacity:.9}.laurel{font-family:Georgia,serif;color:#b28a24;font-size:28px;line-height:1}.laurel-left{transform:scaleX(-1)}
 .cert-school{font-size:25px;font-weight:700;letter-spacing:2px;margin-top:4px}
 .cert-sub{font-size:15px;font-style:italic;margin-top:5px;letter-spacing:1px}
 .cert-title{font-size:30px;font-weight:700;letter-spacing:4px;color:#9a7214;margin-top:15px}
@@ -59,14 +59,7 @@
 .cert-badge{position:absolute;right:42px;top:40px;width:86px;height:86px;border-radius:50%;background:#d7b44a;border:3px double #8d6810;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;font:bold 28px Georgia;box-shadow:none;z-index:4}
 .cert-badge span{font:700 8px Arial;line-height:1.05;letter-spacing:1px}
 .cert-ribbon{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:#1b3150;color:#f8f1df;padding:6px 26px;border:1px solid #b28a24;font:700 10px Arial;letter-spacing:2px}
-.wave{position:absolute;width:230px;height:115px;opacity:.9;border:0;z-index:1}
-.wave:before,.wave:after{content:"";position:absolute;width:190px;height:72px;border:2px solid #b28a24;border-left-color:transparent;border-right-color:transparent;border-radius:50%}
-.wave:after{width:150px;height:56px}
-.wave-tl{left:-82px;top:-40px;transform:rotate(28deg)}
-.wave-tr{right:-82px;top:-40px;transform:rotate(-28deg)}
-.wave-bl{left:-82px;bottom:-40px;transform:rotate(-28deg)}
-.wave-br{right:-82px;bottom:-40px;transform:rotate(28deg)}
-.wave-tl:after,.wave-bl:after{left:30px;top:10px}.wave-tr:after,.wave-br:after{right:30px;top:10px}
+.wave{position:absolute;width:145px;height:145px;z-index:1;opacity:.95;border:0}.wave:before{content:"";position:absolute;inset:0;border:3px solid #b28a24}.wave:after{content:"";position:absolute;inset:10px;border:2px solid #b28a24;background:repeating-linear-gradient(90deg,transparent 0 9px,#b28a24 9px 11px,transparent 11px 18px);mask:linear-gradient(#000 0 12%,transparent 12% 88%,#000 88%)}.wave-tl{left:0;top:0;clip-path:polygon(0 0,100% 0,100% 14%,14% 14%,14% 100%,0 100%)}.wave-tr{right:0;top:0;transform:scaleX(-1);clip-path:polygon(0 0,100% 0,100% 14%,14% 14%,14% 100%,0 100%)}.wave-bl{left:0;bottom:0;transform:scaleY(-1);clip-path:polygon(0 0,100% 0,100% 14%,14% 14%,14% 100%,0 100%)}.wave-br{right:0;bottom:0;transform:scale(-1);clip-path:polygon(0 0,100% 0,100% 14%,14% 14%,14% 100%,0 100%)}
 .cert-download-btn{white-space:nowrap}
 @media(max-width:700px){.cert-modal{padding:8px}.certificate{transform-origin:top center;transform:scale(.52);margin-bottom:-370px}.cert-actions{position:sticky;top:0}.cert-actions .btn{min-height:42px}.results-table{min-width:900px}}
 </style>e>
