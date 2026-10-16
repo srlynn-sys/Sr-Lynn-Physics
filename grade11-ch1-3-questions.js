@@ -490,4 +490,5 @@ window.grade11Ch1to3Questions = [
     "a": 2
   }
 ];
-window.grade11Ch1to3Sections = [[1,17,'Chapter 1: Motion in a Plane'],[18,34,'Chapter 2: Rotational Dynamics'],[35,50,'Chapter 3: Pressure']];
+window.grade11Ch1to3Questions.push({q:"A body of volume 0.01 m³ is fully submerged in water of density 1000 kg m⁻³. Taking g = 10 m s⁻², the buoyant force is:",o:["10 N","50 N","100 N","1000 N"],a:2});
+window.grade11Ch1to3Sections = [[1,17,'Chapter 1: Motion in a Plane'],[18,36,'Chapter 2: Rotational Dynamics'],[37,50,'Chapter 3: Pressure']];
