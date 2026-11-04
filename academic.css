@@ -17,3 +17,78 @@ button,a,input,select,textarea{touch-action:manipulation}
 @media(max-width:650px){body{padding:10px}.top{gap:8px}.hero{padding:22px 17px}.grid{gap:12px}.card{min-height:116px;padding:18px}.card h2{font-size:1.12rem}.btn{min-height:48px;padding:12px 16px}.back,.theme-toggle{min-height:42px}.field input,.field select,.field textarea{min-height:46px}.panel{padding:15px}}
 @media(prefers-reduced-motion:reduce){body:before{animation:none!important}}
 @media (hover:none){.card:hover,.btn:hover,.back:hover,.theme-toggle:hover{transform:none}.card:hover:before,.card:hover:after{opacity:.7}.btn:hover:after{left:-45%}}
+
+
+/* Modern UI refresh — presentation only; application logic and data flow untouched */
+:root{
+  --ui-radius-xl:28px;
+  --ui-radius-lg:22px;
+  --ui-radius-md:16px;
+  --ui-ease:cubic-bezier(.2,.75,.25,1);
+}
+body{
+  background-attachment:fixed;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(57,125,165,.22);color:var(--navy)}
+.wrap{width:min(1120px,100%)}
+.top{gap:14px;margin-bottom:20px}
+.hero{
+  border-radius:var(--ui-radius-xl);
+  box-shadow:0 20px 52px rgba(20,43,67,.16),inset 0 1px 0 rgba(255,255,255,.32);
+}
+.card,.panel,.stat{
+  border-color:var(--glass-border);
+  box-shadow:0 12px 34px rgba(20,43,67,.075),inset 0 1px 0 var(--glass-highlight);
+}
+.card{
+  border-radius:var(--ui-radius-lg);
+  transition:transform .24s var(--ui-ease),box-shadow .24s var(--ui-ease),border-color .24s var(--ui-ease),background .24s var(--ui-ease);
+}
+.card h2{letter-spacing:-.012em}
+.panel{border-radius:var(--ui-radius-lg)}
+.field label{font-size:.94rem;letter-spacing:.005em}
+.field input,.field select,.field textarea{
+  border-radius:var(--ui-radius-md);
+  min-height:46px;
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.field textarea{min-height:100px}
+.btn{
+  border-radius:var(--ui-radius-md);
+  min-height:44px;
+  transition:transform .18s var(--ui-ease),box-shadow .18s ease,filter .18s ease;
+}
+.btn:focus-visible,.back:focus-visible,.theme-toggle:focus-visible{
+  outline:3px solid rgba(57,125,165,.42);
+  outline-offset:3px;
+}
+.table{border:1px solid var(--glass-border);border-radius:18px}
+.table table{margin-top:0}
+.table th{position:sticky;top:0;z-index:2}
+.table tbody tr:nth-child(even) td{background:rgba(120,150,170,.045)}
+html.dark .table tbody tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+html.dark .card,html.dark .panel,html.dark .stat{
+  box-shadow:0 14px 38px rgba(0,0,0,.2),inset 0 1px 0 var(--glass-highlight);
+}
+@media(min-width:900px){
+  .grid{gap:18px}
+  .card{padding:25px}
+  .panel{padding:24px}
+}
+@media(max-width:650px){
+  .top{margin-bottom:12px}
+  .hero{border-radius:23px}
+  .panel{border-radius:19px}
+  .card{border-radius:20px}
+  .table{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table table{min-width:100%}
+}
+@media(hover:hover) and (pointer:fine){
+  .card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(20,43,67,.13),inset 0 1px 0 var(--glass-highlight)}
+  .btn:hover{filter:brightness(1.04)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
