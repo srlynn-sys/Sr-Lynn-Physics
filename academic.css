@@ -17,3 +17,246 @@ button,a,input,select,textarea{touch-action:manipulation}
 @media(max-width:650px){body{padding:10px}.top{gap:8px}.hero{padding:22px 17px}.grid{gap:12px}.card{min-height:116px;padding:18px}.card h2{font-size:1.12rem}.btn{min-height:48px;padding:12px 16px}.back,.theme-toggle{min-height:42px}.field input,.field select,.field textarea{min-height:46px}.panel{padding:15px}}
 @media(prefers-reduced-motion:reduce){body:before{animation:none!important}}
 @media (hover:none){.card:hover,.btn:hover,.back:hover,.theme-toggle:hover{transform:none}.card:hover:before,.card:hover:after{opacity:.7}.btn:hover:after{left:-45%}}
+
+
+/* Modern UI refresh — presentation only; application logic and data flow untouched */
+:root{
+  --ui-radius-xl:28px;
+  --ui-radius-lg:22px;
+  --ui-radius-md:16px;
+  --ui-ease:cubic-bezier(.2,.75,.25,1);
+}
+body{
+  background-attachment:fixed;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(57,125,165,.22);color:var(--navy)}
+.wrap{width:min(1120px,100%)}
+.top{gap:14px;margin-bottom:20px}
+.hero{
+  border-radius:var(--ui-radius-xl);
+  box-shadow:0 20px 52px rgba(20,43,67,.16),inset 0 1px 0 rgba(255,255,255,.32);
+}
+.card,.panel,.stat{
+  border-color:var(--glass-border);
+  box-shadow:0 12px 34px rgba(20,43,67,.075),inset 0 1px 0 var(--glass-highlight);
+}
+.card{
+  border-radius:var(--ui-radius-lg);
+  transition:transform .24s var(--ui-ease),box-shadow .24s var(--ui-ease),border-color .24s var(--ui-ease),background .24s var(--ui-ease);
+}
+.card h2{letter-spacing:-.012em}
+.panel{border-radius:var(--ui-radius-lg)}
+.field label{font-size:.94rem;letter-spacing:.005em}
+.field input,.field select,.field textarea{
+  border-radius:var(--ui-radius-md);
+  min-height:46px;
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.field textarea{min-height:100px}
+.btn{
+  border-radius:var(--ui-radius-md);
+  min-height:44px;
+  transition:transform .18s var(--ui-ease),box-shadow .18s ease,filter .18s ease;
+}
+.btn:focus-visible,.back:focus-visible,.theme-toggle:focus-visible{
+  outline:3px solid rgba(57,125,165,.42);
+  outline-offset:3px;
+}
+.table{border:1px solid var(--glass-border);border-radius:18px}
+.table table{margin-top:0}
+.table th{position:sticky;top:0;z-index:2}
+.table tbody tr:nth-child(even) td{background:rgba(120,150,170,.045)}
+html.dark .table tbody tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+html.dark .card,html.dark .panel,html.dark .stat{
+  box-shadow:0 14px 38px rgba(0,0,0,.2),inset 0 1px 0 var(--glass-highlight);
+}
+@media(min-width:900px){
+  .grid{gap:18px}
+  .card{padding:25px}
+  .panel{padding:24px}
+}
+@media(max-width:650px){
+  .top{margin-bottom:12px}
+  .hero{border-radius:23px}
+  .panel{border-radius:19px}
+  .card{border-radius:20px}
+  .table{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table table{min-width:100%}
+}
+@media(hover:hover) and (pointer:fine){
+  .card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(20,43,67,.13),inset 0 1px 0 var(--glass-highlight)}
+  .btn:hover{filter:brightness(1.04)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+
+/* Minimal blue refresh — CSS-only, keep all existing functionality intact */
+:root{
+  --navy:#172b4d;
+  --blue:#2459d3;
+  --blue2:#3975e8;
+  --bg:#f5f8fc;
+  --card:#ffffff;
+  --line:#e4ebf5;
+  --muted:#66758b;
+  --shadow:0 6px 22px rgba(28,55,100,.055);
+  --glass-border:rgba(219,229,243,.95);
+  --glass-highlight:rgba(255,255,255,.9);
+  --glass-blue:rgba(36,89,211,.07);
+}
+html.dark{
+  --navy:#e7edf8;
+  --blue:#8eb3ff;
+  --blue2:#a6c4ff;
+  --bg:#0e1726;
+  --card:#141f31;
+  --line:#28364c;
+  --muted:#9eacc2;
+  --shadow:0 8px 24px rgba(0,0,0,.16);
+  --glass-border:rgba(151,174,211,.15);
+  --glass-highlight:rgba(255,255,255,.035);
+  --glass-blue:rgba(100,145,240,.1);
+}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(61,116,220,.065),transparent 54%);
+  background-attachment:scroll;
+  line-height:1.65;
+}
+html.dark body{
+  background:var(--bg);
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(61,116,220,.09),transparent 56%);
+}
+/* Remove decorative motion and expensive full-screen effects for a calmer, faster UI. */
+body:before,body:after{display:none!important;animation:none!important}
+.hero{
+  background:linear-gradient(125deg,#1e469d,#2c63cf);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;
+  box-shadow:0 12px 30px rgba(35,79,170,.13);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.hero:before,.hero:after{display:none}
+.hero h1{letter-spacing:-.025em}
+.grid{gap:14px}
+.card,.panel,.stat{
+  background:var(--card);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--shadow);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.card{
+  border-radius:18px;
+  padding:22px;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:before,.card:after,.panel:before,.panel:after{display:none!important;animation:none!important}
+.card h2{letter-spacing:-.015em}
+.card p{color:var(--muted)}
+.card .icon,.icon{
+  border-radius:15px;
+  background:#edf3ff;
+  border:1px solid #e1eaff;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+html.dark .card .icon,html.dark .icon{
+  background:#1b2b48;
+  border-color:#2a3d60;
+}
+.card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(57,117,232,.38);
+  box-shadow:0 12px 28px rgba(28,55,100,.09);
+}
+html.dark .card:hover{box-shadow:0 12px 28px rgba(0,0,0,.2)}
+.panel,.stat{border-radius:18px}
+.back,.theme-toggle{
+  background:var(--card);
+  border:1px solid var(--glass-border);
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.back:before,.theme-toggle:before{display:none}
+.back:hover,.theme-toggle:hover{
+  background:var(--glass-blue);
+  box-shadow:none;
+  transform:translateY(-1px);
+}
+.field input,.field select,.field textarea{
+  background:var(--card);
+  border:1px solid #d8e1ee;
+  border-radius:12px;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+html.dark .field input,html.dark .field select,html.dark .field textarea{
+  background:#111c2d;border-color:#30405a;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--blue2);
+  box-shadow:0 0 0 3px rgba(57,117,232,.13);
+}
+.btn{
+  background:var(--blue);
+  border:1px solid var(--blue);
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(36,89,211,.15);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.btn:after{display:none}
+.btn:hover{
+  background:var(--blue2);
+  box-shadow:0 6px 15px rgba(36,89,211,.2);
+  transform:translateY(-1px);
+}
+.btn.alt{
+  background:var(--card);
+  color:var(--navy);
+  border-color:var(--glass-border);
+  box-shadow:none;
+}
+.btn.alt:hover{background:var(--glass-blue);box-shadow:none}
+.table{border:1px solid var(--glass-border);border-radius:14px}
+.table table{
+  background:var(--card);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.table th{
+  background:#eaf1ff;
+  color:#23468f;
+  border-color:#dce6f7;
+}
+html.dark .table th{background:#1c2d4b;color:#d8e5ff;border-color:#2c3d5b}
+.table th,.table td{border-color:var(--line)}
+.table tbody tr:hover td{background:var(--glass-blue)}
+.table tbody tr:nth-child(even) td{background:rgba(100,130,180,.035)}
+html.dark .table tbody tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+.pill{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.stat{backdrop-filter:none;-webkit-backdrop-filter:none}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid rgba(57,117,232,.35);outline-offset:2px
+}
+@media(min-width:900px){.grid{gap:16px}.card{padding:24px}}
+@media(max-width:650px){
+  body{padding:12px}
+  .hero{border-radius:20px;padding:21px 17px}
+  .card{padding:18px;border-radius:16px;min-height:unset}
+  .panel{padding:14px;border-radius:16px}
+  .grid{gap:10px}
+  .btn{min-height:46px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
